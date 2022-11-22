@@ -11,10 +11,10 @@ const {
 //Bring in Course model
 //Bring in Advanced Results middleware
 const Course = require('../models/Course');
-const advancedResults = require('../middleware/advancedResults');
 
 const router = express.Router({ mergeParams: true });
 
+const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');
 
 router
