@@ -43,7 +43,7 @@ const CourseSchema = new mongoose.Schema({
   },
 });
 
-//Static Method to get avagere of cousre tuition
+//Static Method to get average of course tuition
 CourseSchema.statics.getAverageCost = async function (bootcampId) {
   const obj = await this.aggregate([
     {
