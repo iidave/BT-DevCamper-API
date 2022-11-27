@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const crypto = require('crypto'); //Security
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const sendEmail = require('../utils/sendEmail');

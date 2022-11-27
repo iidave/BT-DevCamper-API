@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); //Security
 const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
@@ -13,7 +13,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
   ) {
     //Set token from Bearer token in header
     token = req.headers.authorization.split(' ')[1]; //Removes word bearer and just returns the token code
-   } 
+  }
   // Set Token from Cookie if you want to do it this way uncomment the below code
   //else if (req.cookies.token) {
   //   token = req.cookies.token;

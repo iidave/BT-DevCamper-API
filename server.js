@@ -5,6 +5,12 @@ const morgan = require('morgan');
 const colors = require('colors');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize'); //Security
+const helmet = require('helmet'); //Security
+const xss = require('xss-clean'); //Security
+const rateLimit = require('express-rate-limit'); //Security
+const hpp = require('hpp'); //Security
+const cors = require('cors'); //Controls Cross-origin server requests
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
@@ -36,6 +42,31 @@ if (process.env.NODE_ENV === 'development') {
 
 //File uploading
 app.use(fileupload());
+
+//------SECURITY FEATURES BELOW------//
+//Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+//Prevent Cross-site Attacks
+app.use(xss());
+
+//Limit Requests to protect from DDS
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 100, //10 mins
+  max: 100,
+});
+app.use(limiter);
+
+//Prevent http param pollution
+app.use(hpp());
+
+//Enable CORS Allows different domain(front-end) to be able to access Back-end (if they are aon different domains, and the ability to limit if needed)
+app.use(cors());
+
+//------SECURITY FEATURES ABOVE------//
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
